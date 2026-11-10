@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto La Nacion</title>
+    <style>
+        /* reset basico de margenes y padding*/
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            font-family: "open sans", Arial, Helvetica, sans-serif;
+            background: linear-gradient(1350deg, #E3E3E3, #BDBDBD);
+        }
+        /* Contenedor principal del head */
+        .header{
+            font-family: Georgia, serif;
+            display: flex; /* Activa el flexbox */
+            align-items: center; /* centra verticalmente los elementos */
+            justify-content: space-between; /* Distribuye: el logo a la izquierda, el nav al centro y el boton a la derecha */
+            width: 100%;
+            height: 80px;
+            padding: 15px 30px;
+            background-color: #050E5C;
+            border-bottom: 3px solid #00CAF7 ; /* Borde inferior*/
+        }
+        .logo{
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+        }
+        .logo img{
+            height: 50px;
+            display: block;
+        }
+        .nav{
+            display: flex;
+            gap: 20px;
+            padding: 10px 0;
+        }
+        .nav a{
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: background-color 0.3s; /*Animacion para los "botones"*/
+        }
+        .nav a:hover{
+            background-color: #202D99;
+        }
+        .boton-registrarse{
+            padding: 10px 15px;
+            font-family: inherit; /* Usa la misma fuente que el resto de la pagina */
+            font-size: 12px;
+            font-weight: bold;
+            color: #050E5C; /* Mismo color de texto que usa .btn */
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            letter-spacing: 1px;
+            background: linear-gradient(
+                90deg,
+                #00CAF7,
+                #10B0EB,
+                #3eb1db,
+                #7fdcff,
+                #00CAF7
+            );
+            background-size: 300% 100%;
+            background-position: 0% 50%;
+            transition:
+                background-position 0.8s ease,
+                transform 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+        .boton-registrarse .material-icons{
+            font-size: 12px;
+        }
+        .boton-registrarse:hover{
+            background-position: 100% 50%;
+            transform: translateY(-4px) scale(1.03);
+            box-shadow: 0 15px 30px rgba(0, 202, 247, 0.5);
+        }
+        .boton-registrarse:active{
+            transform: translateY(0) scale(0.98);
+        }
+        .btn{
+            border: none;
+            cursor: pointer;
+            color: #050E5C;
+            padding: 3px;
+            border-radius: 2px;
+            letter-spacing: 1px;
+            transition:
+                transform 0.5s ease,
+                box-shadow 0.5s ease,
+                backgorund 0.5s ease;
+        }
+        .btn:hover{
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 15px 30px #05698d;
+            background: linear-gradient(0deg, #10B0EB, #3eb1db);
+        }
+        .btn:active{
+            transform: translateY(2px) scale(0.98);
+            box-shadow: 0 4px 10px rgba(238, 90, 36, 0.4)
+        }
+        .footer{
+            font-family: Georgia, serif;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            height: 80px;
+            background-color: #050E5C;
+            border-top: 3px solid #00CAF7;
+        }
+        .Logotipo{
+            order: 2; /* el logo va en el centro del footer */
+        }
+        .Logotipo img{
+            height: 50px;
+            display: block;
+        }
+        .nav1{
+            order: 3; /* NUEVO: las redes van a la derecha */
+            flex: 1;
+            justify-content: flex-end;
+            display: flex;
+            gap: 20px;
+            padding: 10px 0;
+        }
+        .nav1 a{
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: background-color 0.3s; /*Animacion para los "botones"*/
+            margin-left: 15px;
+        }
+        .nav1 img{
+            height: 30px;
+            display: block;
+        }
+        .nav1 a:hover{
+            background-color: #202D99;
+        }
+        .nav1-1{
+            order: 1; /* NUEVO: la politica de privacidad va a la izquierda */
+            flex: 1;
+            display: flex;
+            gap: 20px;
+            padding: 3px 0;
+        }
+        .nav1-1 a{
+            text-decoration: underline; /* CAMBIO: subrayado como en el wireframe */
+            color: white;
+            font-size: 16px;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: background-color 0.3s; /*Animacion para los "botones"*/
+            margin-left: 15px;
+        }
+        .nav1-1 a:hover{
+            background-color: #202D99;
+        }
+        .menu-hamburguesa{
+            display:none;
+            border: none;
+            background: transparent;
+            color: white;
+            cursor: pointer;
+            padding: 0;
+        }
+        .menu-hamburguesa .material-icons{
+            font-size: 36px;
+        }
+        .main{
+            display: flex; /* Activa el flexbox */
+            flex-wrap: wrap; /* NUEVO: permite que las noticias bajen de fila */
+            align-items: flex-start;
+            justify-content: space-between; /* Distribuye: el logo a la izquierda, el nav al centro y el boton a la derecha */
+            width: 100%;
+            min-height: 600px; /* para que no se corte el contenido */
+            padding: 15px 30px;
+        }
+        /* Noticia principal: texto a la izquierda e imagen a la derecha */
+        .Noticia1{
+            display: flex; 
+            align-items: center; /* centra verticalmente los elementos */
+            justify-content: center; 
+            gap: 20px; 
+            width: 100%; 
+            text-align: center; 
+            margin-bottom: 40px;
+            border-bottom: 1px;
+            padding-bottom: 20px;
+        }
+        .Noticia1 .texto{
+            max-width: 50%;
+        }
+        .Noticia1 h1{
+            font-family: Georgia, serif;
+            font-size: 34px;
+        }
+        .Noticia1 h2{
+            font-family: Georgia, serif;
+            font-size: 34px;
+            font-weight: normal; /* Mas fino que el titulo */
+        }
+        .Noticia1 img{
+            width: 400px;
+            max-width: 50%;
+            border: 2px solid grey;
+        }
+        .Noticia2{
+            font-family: Georgia, serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            width: 48%;
+            text-align: center;
+            font-size: 20px;
+            margin-bottom: 40px;
+        }
+        .Noticia2 img{
+            object-fit: cover;
+            height: 225px;
+            width: 500px;
+            max-width: 50%;
+            border: 2px solid grey;
+        }
+        
+        .Noticia3{
+            font-family: Georgia, serif;
+            width: 23%;
+            text-align: center;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        .Noticia3 img{
+            object-fit: cover;
+            height: 180px;
+            width: 90%;
+            margin-bottom: 10px;
+            border: 2px solid grey;
+        }
+        /*Para pantallas pequeñas: colapsar los elementos en columna*/
+        @media (max-width: 601px){
+            .header{
+                flex-direction: row; /* Cambia a columna */
+                height: auto;
+                padding: 15px;
+                gap: 15px;
+            }
+            .nav{
+                display: none;
+            }
+            .boton-registrarse{
+                display: none;
+            }
+            .menu-hamburguesa{
+                display:block;
+            }
+            .footer{
+                font-family: Georgia, serif;
+                flex-direction: column; /* Cambia a columna */
+                height: auto;
+                padding: 15px;
+                gap: 15px;
+            }
+            .nav1{
+                flex: none;
+                flex-wrap: wrap; /* Permiten que los enlaces salten de linea */
+                justify-content: center;
+                padding: 15px 30px;
+            }
+            .nav1-1{
+                flex: none;
+            }
+            .Noticia1,
+            .Noticia2{
+                flex-direction: column-reverse;
+                width: 100%;
+            }
+            .Noticia1 .texto{
+                max-width: 100%;
+            }
+            .Noticia1 img,
+            .Noticia2 img{
+                max-width: 100%;
+            }
+            .Noticia3{
+                width: 48%;
+            }
+        }
+    </style>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+<body>
+    <header class = "header">
+        <div class = "logo">
+            <img src="css/logoLaNacion.png">
+        </div>
+        <nav class = "nav">
+            <a href = "#">Política</a>
+            <a href = "#">Deporte</a>
+            <a href = "#">Internacional</a>
+        </nav>
+        <div class="button">
+            <button type="button" class="boton-registrarse">
+                <i class="material-icons">person</i>
+                 Registrarse
+                </button>
+        </div>
+        <button type="button" class="menu-hamburguesa" aria-label="Abrir menu">
+            <i class="material-icons">menu</i>
+        </button>
+    </header>
+    <main class = "main">
+        <div class = "Noticia1">
+            <div class = "texto">
+                <h1>Irán lanzó misiles contra Israel:</h1>
+                <h2>Israel amenazó con responder de forma "contundente".</h2>
+            </div>
+            <img src="css/israel-iran.avif">
+        </div>
+        <div class = "Noticia2">
+            <p><strong>Balon de Oro:</strong> Harry Kane, el sorpresivo ganador por encima de muchas figuras. </p>
+            <img src="css/kane-balondeoro.jpg">
+        </div>
+        <div class = "Noticia2">
+            <p><strong>F1 en Estados Unidos:</strong> Antonelli ganó y ya casi es campeón: Colapinto abandonó.</p>
+            <img src="css/F1-usa.avif">
+        </div>
+        <div class = "Noticia3">
+            <img src="css/visita-papa.avif">
+            <p><strong>Visita del Papa: </strong>La inversion millonaria del gobierno en el evento.</p>
+        </div>
+        <div class = "Noticia3">
+            <img src="css/lluvia-bsas.jpg">
+            <p><strong>Clima:</strong> Alerta por lluvias y tormentas en Buenos Aires.</p>
+        </div>
+        <div class = "Noticia3">
+            <img src="css/congreso.jpg">
+            <p><strong>Política:</strong> Debate en el Congreso por el nuevo proyecto.</p>
+        </div>
+        <div class = "Noticia3">
+            <img src="css/boca-2.avif">
+            <p><strong>Futbol Argentino:</strong> "Jagger" Herrera y un gol para un triunfo clave.</p>
+        </div>
+    </main>
+    <footer class = "footer">
+        <div class = "Logotipo">
+            <img src="css/logoLaNacion.png">
+        </div>
+        <nav class = "nav1">
+            <a href="https://www.instagram.com/lanacioncom/?hl=es">
+                <img src="css/logoInstagram.png">
+            </a>
+            <a href="https://www.youtube.com/@lanacion">
+                <img src="css/logoYoutube.png">
+            </a>
+            <a href="https://x.com/LANACION">
+                <img src="css/logoX (2).png">
+            </a>
+        </nav>
+        <nav class = "nav1-1">
+            <a href="https://www.contacto.lanacion.com.ar/privacidad">Política De Privacidad</a>
+        </nav>
+    </footer>
+</body>
+</html>
